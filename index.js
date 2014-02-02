@@ -1,11 +1,12 @@
 
 var Backbone = require('backbone')
   , _ = require('lodash')
-  , $ = window.jQuery
 
   , Route = require('./route')
 
-Backbone.$ = $
+if (typeof window !== 'undefined') {
+  Backbone.$ = window.$
+}
 
 module.exports = {
   getInitialState: function () {
@@ -13,6 +14,11 @@ module.exports = {
     return {
       _route: this.defaultRoute(),
       _navigations: 0
+    }
+  },
+  getDefaultProps: function () {
+    return {
+      initialPath: ''
     }
   },
   createRoutes: function () {
@@ -27,13 +33,14 @@ module.exports = {
   },
   defaultRoute: function () {
     var found = null
-    for (var route in this._routes) {
-      var obj = route.match('')
+    for (var name in this._routes) {
+      var route = this._routes[name]
+      var obj = route.match(this.props.initialPath)
       if (!obj) continue;
       found = {
         name: route.name,
         params: obj,
-        raw: ''
+        raw: this.props.initialPath
       }
       break;
     }
