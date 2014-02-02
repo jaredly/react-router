@@ -4,6 +4,8 @@ The is the router I always wanted for react.
 
 **react-router** makes it so that routing is as clean and awesome as the rest of react. The url is, after all, just a serialization of state, and react does state better than anyone.
 
+And **server-side rendering**!!
+
 ### What you get to do
 
 Declare your routes once, and then never have to worry about constructing or parsing urls again. Also, all route data is stored in `state` (`this.state._route` to be precise), so route changes (either browser or js initiated) will trigger all of the normal state-change handlers.
