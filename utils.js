@@ -36,6 +36,9 @@ function parse(name, value, parser) {
   if (parser === Number) {
     return Number(value)
   }
+  if (parser === String) {
+    return '' + value
+  }
   if (parser.parse) {
     return parser.parse(value)
   }
@@ -51,6 +54,9 @@ function stringify(name, value, parser) {
   }
   if (parser === Number) {
     return value + ''
+  }
+  if (parser === String) {
+    return '' + value
   }
   if (parser.stringify) {
     return parser.stringify(value)
