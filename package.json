@@ -8,15 +8,20 @@
   },
   "dependencies": {
     "backbone": "~1.1.0",
-    "expect.js": "~0.2.0"
+    "expect.js": "~0.2.0",
+    "lodash": "~2.4.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "mocha": "~1.17.1",
+    "envify": "~0.2.0",
+    "react": "~0.8.0"
+  },
   "scripts": {
     "test": "make test"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/jaredly/reactor.git"
+    "url": "git://github.com/jaredly/react-router.git"
   },
   "keywords": [
     "reactjs",
@@ -25,7 +30,7 @@
   "author": "Jared Forsyth <jared@jaredforsyth.com>",
   "license": "Apache v2",
   "bugs": {
-    "url": "https://github.com/jaredly/reactor/issues"
+    "url": "https://github.com/jaredly/react-router/issues"
   },
-  "homepage": "https://github.com/jaredly/reactor"
+  "homepage": "https://github.com/jaredly/react-router"
 }

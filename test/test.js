@@ -1,6 +1,8 @@
 
 var expect = require('expect.js')
   , Route = require('../route')
+  , RouteMixin = require('../')
+  , React = require('react')
 
 var months = ['jan', 'feb', 'mar', 'apr', 'may', 'jun']
 
@@ -126,6 +128,52 @@ describe('Router', function () {
     })
     it('should serialize default', function () {
       expect(r.toFragment({two: 5, three: new Date(10000)})).to.equal('')
+    })
+  })
+
+  describe('server rendering', function () {
+    var d = React.DOM;
+
+    var MonthParser = {
+      months: ['jan', 'feb', 'mar', 'apr', 'may', 'jun'],
+      stringify: function (num) {
+        return this.months[num]
+      },
+      parse: function (month) {
+        return months.indexOf(month.toLowerCase())
+      }
+    }
+
+    var Example = React.createClass({
+      mixins: [RouteMixin],
+      routes: {
+        home: '',
+        time: {
+          match: 'time/:time/:num/:month',
+          args: {
+            time: Date, // or Number, or an object with serialize and deserialize functions
+            num: Number,
+            month: MonthParser
+          }
+        },
+        person: ':pid',
+      },
+      render: function () {
+        var route = this.getRoute()
+        return d.div(
+          null,
+          d.h1(null, 'Hello!'),
+          d.span(null, 'You are on page ' + route.name)
+        )
+      },
+    })
+
+    it('should work without a DOM', function () {
+      var markup
+      React.renderComponentToString(Example({initialPath: 'person1'}), function(_markup) {
+        markup = _markup
+      })
+      expect(markup.indexOf('You are on page person') > -1).to.equal(true)
     })
   })
 })

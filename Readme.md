@@ -95,3 +95,7 @@ second: {
 }
 ```
 The url `go/jan` would trigger the route `first`, while the url `go/somethere` would trigger the route `second`.
+
+#### Server-side rendering
+
+It's also easy to use `react-router` on the server to pre-render static HTML for the route. Just provide an `initialPath` prop with the path from the HTTP request.
