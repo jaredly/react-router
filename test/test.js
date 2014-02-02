@@ -4,6 +4,18 @@ var expect = require('expect.js')
 
 var months = ['jan', 'feb', 'mar', 'apr', 'may', 'jun']
 
+var DateParser = {
+  compare: function (a, b) {
+    return a.getTime() === b.getTime()
+  },
+  stringify: function (date) {
+    return date.getTime()
+  },
+  parse: function (num) {
+    return new Date(+num)
+  }
+}
+
 var MonthParser = {
   months: months,
   match: new RegExp(months.join('|')),
@@ -85,27 +97,31 @@ describe('Router', function () {
     var r
     beforeEach(function () {
       r = new Route('test', {
-        match: ['', 'one/:two'],
+        match: ['', 'one/:two/:three'],
         args: {
           two: {
             default: 5,
             type: Number
+          },
+          three: {
+            default: new Date(10000),
+            type: DateParser
           }
         }
       })
     })
     it('should fill in the default', function () {
-      expect(r.match('')).to.eql({two: 5})
+      expect(r.match('')).to.eql({two: 5, three: new Date(10000)})
     })
     it('should override the default', function () {
-      expect(r.match('one/12')).to.eql({two: 12})
+      expect(r.match('one/12/10')).to.eql({two: 12, three: new Date(10)})
     })
 
     it('should serialize normally', function () {
-      expect(r.toFragment({two: 7})).to.equal('one/7')
+      expect(r.toFragment({two: 7, three: new Date(20)})).to.equal('one/7/20')
     })
     it('should serialize default', function () {
-      expect(r.toFragment({two: 5})).to.equal('')
+      expect(r.toFragment({two: 5, three: new Date(10000)})).to.equal('')
     })
   })
 })

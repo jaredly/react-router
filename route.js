@@ -81,11 +81,18 @@ Route.prototype = {
     var atDefault = []
       , rest = []
     Object.keys(params).forEach(function (name) {
-      if (undefined === (that.args[name] || that.args[name].default) ||
-          params[name] !== that.args[name].default) {
-        rest.push(name)
-      } else {
+      var isdef = false
+      if (that.args[name] && undefined !== that.args[name].default) {
+        if (that.args[name].type && that.args[name].type.compare) {
+          isdef = that.args[name].type.compare(params[name], that.args[name].default)
+        } else {
+          isdef = params[name] === that.args[name].default
+        }
+      }
+      if (isdef) {
         atDefault.push(name)
+      } else {
+        rest.push(name)
       }
     })
     var found = null
