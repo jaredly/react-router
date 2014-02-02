@@ -6,9 +6,6 @@ module.exports = {
 }
 
 // based on backbone's route to regex method
-// var optionalParam = /\((.*?)\)/g;
-var namedParam    = /:\w+/g;
-var splatParam    = /\*\w+/g;
 var escapeRegExp  = /[\-{}\[\]+?.,\\\^$|#\s]/g;
 
 function routeToRegExp(pattern, args) {
@@ -25,9 +22,8 @@ function routeToRegExp(pattern, args) {
     return '(' + type.match + ')'
   }
   pattern = pattern.replace(escapeRegExp, '\\$&')
-                // .replace(optionalParam, '(?:$1)?')
                 .replace(/:(\w+)/g, replacer)
-                .replace(splatParam, '(.*?)');
+                .replace(/\*\w+/g, '(.*?)');
   return new RegExp('^' + pattern + '$');
 }
 

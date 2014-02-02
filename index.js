@@ -11,7 +11,8 @@ module.exports = {
   getInitialState: function () {
     this.createRoutes()
     return {
-      _route: this.defaultRoute()
+      _route: this.defaultRoute(),
+      _navigations: 0
     }
   },
   createRoutes: function () {
@@ -50,6 +51,7 @@ module.exports = {
     return this.state._route
   },
   setRoute: function (name, params) {
+    params = params || {}
     if (!this._routes[name]) {
       console.warn('Route not defined', name)
       return
@@ -68,7 +70,8 @@ module.exports = {
         name: name,
         raw: fragment,
         params: params
-      }
+      },
+      _navigations: this.state._navigations + 1
     })
   },
   setupRoutes: function () {
