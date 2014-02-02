@@ -1,0 +1,31 @@
+{
+  "name": "reactor",
+  "version": "0.0.0",
+  "description": "An integrated router mixin for react components",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "backbone": "~1.1.0",
+    "expect.js": "~0.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "make test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jaredly/reactor.git"
+  },
+  "keywords": [
+    "reactjs",
+    "router"
+  ],
+  "author": "Jared Forsyth <jared@jaredforsyth.com>",
+  "license": "Apache v2",
+  "bugs": {
+    "url": "https://github.com/jaredly/reactor/issues"
+  },
+  "homepage": "https://github.com/jaredly/reactor"
+}
