@@ -5,7 +5,8 @@ module.exports = {
 }
 
 function parse(name, value, parser) {
-  if (!this.args[name]) return value
+  if (!parser) return value
+  if (parser.type) parser = parser.type
   if (parser === Date) {
     return new Date(value)
   }
@@ -20,8 +21,8 @@ function parse(name, value, parser) {
 }
 
 function stringify(name, value, parser) {
-  if (!this.args[name]) return value + ''
-  var parser = this.args[name]
+  if (!parser) return value + ''
+  if (parser.type) parser = parser.type
   if (parser === Date) {
     return new Date(value).getTime()
   }

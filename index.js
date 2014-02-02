@@ -3,17 +3,9 @@ var Backbone = require('backbone')
   , _ = require('lodash')
   , $ = window.jQuery
 
+  , Route = require('./route')
+
 Backbone.$ = $
-
-
-function findall(rx, str) {
-  var found = []
-  str.replace(rx, function (match) {
-    found.push(match)
-    return ''
-  })
-  return found
-}
 
 module.exports = {
   getInitialState: function () {
@@ -38,12 +30,9 @@ module.exports = {
       return
     }
     var fragment = this._routes[name].toFragment(params)
-    if ('string' !== typeof dest) {
-      dest = this._findRouteForObj(dest)
-    }
-    Backbone.history.navigate(dest, {trigger: true})
+    Backbone.history.navigate(fragment, {trigger: true})
   },
-  onRoute: function (name, fragment, params) {
+  onRoute: function (name, params, fragment) {
     this.setState({
       _route: {
         name: name,

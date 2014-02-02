@@ -1,3 +1,4 @@
+/*
 
 var RouteMixin = require('../')
 
@@ -52,3 +53,4 @@ var Ex1 = React.createClass({
 }
 
 
+*/
