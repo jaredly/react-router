@@ -36,7 +36,7 @@ function Route(name, config) {
   this.args = config.args || {}
 
   this.matchers = config.match.map(function (matcher) {
-    var rx = Backbone.Router.prototype._routeToRegExp(matcher)
+    var rx = utils.routeToRegExp(matcher, config.args || {})
     var names = []
     matcher.replace(/:(\w+)/g, function (full, name) {
       names.push(name)

@@ -18,7 +18,7 @@ var DateParser = {
 
 var MonthParser = {
   months: months,
-  match: new RegExp(months.join('|')),
+  match: months.join('|'),
   stringify: function (num) {
     return months[num]
   },
@@ -90,6 +90,10 @@ describe('Router', function () {
         three: 1
       })
       expect(frag).to.equal('one/36/feb')
+    })
+
+    it('should not parse something that does not match the type', function () {
+      expect(r.match('one/34/foo')).to.not.be.ok()
     })
   })
 

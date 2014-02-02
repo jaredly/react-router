@@ -1,7 +1,34 @@
 
 module.exports = {
   parse: parse,
-  stringify: stringify
+  stringify: stringify,
+  routeToRegExp: routeToRegExp
+}
+
+// based on backbone's route to regex method
+// var optionalParam = /\((.*?)\)/g;
+var namedParam    = /:\w+/g;
+var splatParam    = /\*\w+/g;
+var escapeRegExp  = /[\-{}\[\]+?.,\\\^$|#\s]/g;
+
+function routeToRegExp(pattern, args) {
+  function replacer(match, name) {
+    var type = args[name]
+    if (type && type.type) type = type.type
+    if (!type || !type.match) {
+      return '([^\/]+)'
+    }
+    if ('string' !== typeof type.match) {
+      console.error('Arg type.match must be a string', name, type.match)
+      throw new Error('arg type.match must be a string')
+    }
+    return '(' + type.match + ')'
+  }
+  pattern = pattern.replace(escapeRegExp, '\\$&')
+                // .replace(optionalParam, '(?:$1)?')
+                .replace(/:(\w+)/g, replacer)
+                .replace(splatParam, '(.*?)');
+  return new RegExp('^' + pattern + '$');
 }
 
 function parse(name, value, parser) {
