@@ -1,5 +1,5 @@
 {
-  "name": "reactor",
+  "name": "react-router",
   "version": "0.0.0",
   "description": "An integrated router mixin for react components",
   "main": "index.js",
