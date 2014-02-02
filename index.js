@@ -27,16 +27,16 @@ module.exports = {
   },
   defaultRoute: function () {
     var found = null
-    this._routes.some(function (route) {
+    for (var route in this._routes) {
       var obj = route.match('')
-      if (!obj) return false
+      if (!obj) continue;
       found = {
         name: route.name,
         params: obj,
         raw: ''
       }
-      return true
-    })
+      break;
+    }
     return found
   },
   /**
@@ -76,9 +76,9 @@ module.exports = {
   },
   setupRoutes: function () {
     var that = this
-    this._routes.forEach(function (route) {
-      route.register(that.onRoute.bind(that, route.name))
-    })
+    for (var name in this._routes) {
+      this._routes[name].register(that.onRoute.bind(that, name))
+    }
   },
   componentDidMount: function () {
     this.setupRoutes()
