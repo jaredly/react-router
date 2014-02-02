@@ -114,7 +114,7 @@ Route.prototype = {
       obj[names[i]] = utils.parse(names[i], values[i], this.args[names[i]])
     }
     for (var name in this.args) {
-      if (names.indexOf(name) !== -1) continue
+      if (names.indexOf(name) !== -1) continue;
       if (this.args[name].default) {
         obj[name] = this.args[name].default
       }
