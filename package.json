@@ -1,0 +1,17 @@
+{
+  "name": "react-router",
+  "version": "0.0.0",
+  "description": "A router for react",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "make test"
+  },
+  "author": "Jared Forsyth <jared@jaredforsyth.com>",
+  "license": "None yet",
+  "dependencies": {
+    "expect.js": "~0.3.1"
+  }
+}
