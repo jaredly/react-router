@@ -146,7 +146,7 @@ module.exports = {
   outlet: function () {
     var route = this.routes[this.state._route]
       , rname = this.state._route
-    if (!route && this.routes['*']) route = this.routes['*']
+    if (!route && this.routes['*'] && rname) route = this.routes['*']
     if (!route && (rname || !this.model)) {
       console.log('Invalid router state envountered; no good route here...' + this.state._route)
       this.goTo('')
